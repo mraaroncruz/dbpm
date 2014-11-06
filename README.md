@@ -9,6 +9,7 @@ Search the picks on devchat.tv sites
 - static pages
 - redesign
   - https://dribbble.com/shots/875799-Designer-News?list=searches&offset=11
+
 - resources
   - pick
     - link
