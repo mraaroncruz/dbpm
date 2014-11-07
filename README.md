@@ -2,11 +2,17 @@
 Search the picks on devchat.tv sites
 - Ruby Rogues
 
+### Sitemap
+index with search
+robots.txt :P
+
 ### Todo
 
-- sitemap of sorts
-- wireframe
-- static pages
+- <del>sitemap</del>
+- <del>wireframe</del>
+- <del>static pages</del> there are none
+- write description with gh link
+
 - redesign
   - https://dribbble.com/shots/875799-Designer-News?list=searches&offset=11
 
