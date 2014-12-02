@@ -12,7 +12,6 @@ robots.txt :P
 - <del>wireframe</del>
 - <del>static pages</del> there are none
 - write description with gh link
-
 - redesign
   - https://dribbble.com/shots/875799-Designer-News?list=searches&offset=11
 
