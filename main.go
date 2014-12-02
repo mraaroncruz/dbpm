@@ -11,23 +11,12 @@ import (
 
 type episode struct {
 	Title, Slug, Description, Number string
-	Hosts, Guests                    []person
 	PublishedAt                      string `json:"published_at"`
 	Picks                            []pick
-	Links                            link
-}
-
-type person struct {
-	Name string
-	Slug string
 }
 
 type pick struct {
 	Host, Name, Link, Description string
-}
-
-type link struct {
-	Episode, Show string
 }
 
 func main() {
@@ -49,14 +38,21 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	for _, pick := range episodes[0].Picks {
-		link := pick.Link
-		doc, err := readability.ParseURL(link)
-		if err != nil {
-			panic(err)
-		}
-		content, err := doc.Content()
-		fmt.Printf("%s\n", content)
-
+	contentChan := make(chan string)
+	pickCount := len(episodes[0].Picks)
+	for _, aPick := range episodes[0].Picks {
+		go func(p pick) {
+			link := p.Link
+			doc, err := readability.ParseURL(link)
+			if err != nil {
+				panic(err)
+			}
+			content, err := doc.Content()
+			contentChan <- content
+		}(aPick)
+	}
+	for i := 0; i < pickCount; i++ {
+		c := <-contentChan
+		fmt.Printf("%s\n", c)
 	}
 }
