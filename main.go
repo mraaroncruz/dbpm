@@ -16,7 +16,7 @@ type episode struct {
 }
 
 type pick struct {
-	Host, Name, Link, Description string
+	Host, Name, Link, Description, Content string
 }
 
 func main() {
@@ -33,26 +33,35 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
 	var episodes = []episode{}
 	err = json.Unmarshal(body, &episodes)
 	if err != nil {
 		panic(err)
 	}
-	contentChan := make(chan string)
+
+	pickChan := make(chan pick)
 	pickCount := len(episodes[0].Picks)
 	for _, aPick := range episodes[0].Picks {
 		go func(p pick) {
 			link := p.Link
 			doc, err := readability.ParseURL(link)
 			if err != nil {
-				panic(err)
+				fmt.Printf("\n\nERRRROOORRRR: %s\n\n", err)
+				pickChan <- p
+				return
 			}
 			content, err := doc.Content()
-			contentChan <- content
+			if err != nil {
+				panic(err)
+			}
+			p.Content = content
+			pickChan <- p
 		}(aPick)
 	}
+
 	for i := 0; i < pickCount; i++ {
-		c := <-contentChan
-		fmt.Printf("%s\n", c)
+		currentPick := <-pickChan
+		fmt.Printf("%#v\n", currentPick)
 	}
 }
