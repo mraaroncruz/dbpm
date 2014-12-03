@@ -1,11 +1,15 @@
 package models
 
-import "github.com/pferdefleisch/dbpm/data"
+import (
+	"fmt"
+
+	"github.com/jmoiron/sqlx"
+)
 
 // Pick model that is a db and json model
 type Pick struct {
 	ID          int
-	EpisodeID   int `database:"episode_id"`
+	EpisodeID   int `db:"episode_id"`
 	Host        string
 	Name        string
 	Link        string
@@ -14,34 +18,27 @@ type Pick struct {
 }
 
 // Save saves pick to database
-func (p *Pick) Save() error {
-	db := data.DB
-	tx, err := db.Begin()
-	if err != nil {
-		return err
-	}
-	_, err = tx.Exec(`
-    INSERT INTO picks
-      (episode_id, host, name, link, description, content)
-    VALUES
-      ($1, $2, $3, $4, $5, $6)`,
-		p.EpisodeID,
-		p.Host,
-		p.Name,
-		p.Link,
-		p.Description,
-		p.Content)
-	if err != nil {
-		return err
-	}
-	err = tx.Commit()
-	if err != nil {
-		return err
-	}
+func (p *Pick) Save(db *sqlx.DB) error {
+	query := `
+    INSERT INTO picks (
+      episode_id, host, name, link, description, content)
+    VALUES(
+      :episode_id, :host, :name, :link, :description, :content)`
+	db.NamedExec(query, &p)
 	return nil
 }
 
-// Search searches for picks in db based on ++term++
-func Search(term string) ([]Pick, error) {
-	return nil, nil
+// SearchPicks searches for picks in db based on ++term++
+func SearchPicks(term string, db *sqlx.DB) ([]Pick, error) {
+	picks := []Pick{}
+	query := `
+    SELECT * FROM picks
+      WHERE
+        to_tsvector('english', name || ' ' || description || ' ' || content) @@
+        to_tsquery('english', $1)`
+	err := db.Select(&picks, query, term)
+	if err != nil {
+		fmt.Printf("Error getting picks: %s\n", err)
+	}
+	return picks, nil
 }
