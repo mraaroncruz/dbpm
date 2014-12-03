@@ -28,8 +28,8 @@ func (p *Pick) Save(db *sqlx.DB) error {
 	return nil
 }
 
-// SearchPicks searches for picks in db based on ++term++
-func SearchPicks(term string, db *sqlx.DB) ([]Pick, error) {
+// PicksSearch searches for picks in db based on ++term++
+func PicksSearch(term string, db *sqlx.DB) ([]Pick, error) {
 	picks := []Pick{}
 	query := `
     SELECT * FROM picks
