@@ -7,16 +7,14 @@ import (
 	"net/http"
 
 	"github.com/agonopol/readability"
+	"github.com/pferdefleisch/dbpm/data"
+	"github.com/pferdefleisch/dbpm/models"
 )
 
 type episode struct {
 	Title, Slug, Description, Number string
 	PublishedAt                      string `json:"published_at"`
-	Picks                            []pick
-}
-
-type pick struct {
-	Host, Name, Link, Description, Content string
+	Picks                            []models.Pick
 }
 
 func main() {
@@ -40,10 +38,10 @@ func main() {
 		panic(err)
 	}
 
-	pickChan := make(chan pick)
+	pickChan := make(chan models.Pick)
 	pickCount := len(episodes[0].Picks)
 	for _, aPick := range episodes[0].Picks {
-		go func(p pick) {
+		go func(p models.Pick) {
 			link := p.Link
 			doc, err := readability.ParseURL(link)
 			if err != nil {
@@ -62,6 +60,11 @@ func main() {
 
 	for i := 0; i < pickCount; i++ {
 		currentPick := <-pickChan
+		err = currentPick.Save()
+		fmt.Printf("ERRRRR::: %s\n\n\n", err)
 		fmt.Printf("%#v\n", currentPick)
 	}
+
+	db := data.DB
+	defer db.Close()
 }
