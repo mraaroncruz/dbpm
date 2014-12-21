@@ -1,10 +1,10 @@
 CREATE TABLE picks (
   id SERIAL PRIMARY KEY,
   episode_id int,
-  host VARCHAR(100),
-  name VARCHAR(300),
+  host VARCHAR(300),
+  name VARCHAR(1000),
   link VARCHAR(300),
-  description VARCHAR(400),
+  description VARCHAR(1000),
   content TEXT
 );
 
@@ -15,8 +15,8 @@ CREATE INDEX search_idx ON picks USING gin(to_tsvector('english', name || ' ' ||
 CREATE TABLE episodes (
   id SERIAL PRIMARY KEY,
   show_id int,
-  title VARCHAR(100),
-  slug VARCHAR(300),
+  title VARCHAR(256),
+  slug VARCHAR(256),
   description VARCHAR(400),
   number integer,
   published_at date DEFAULT now()

@@ -1,6 +1,9 @@
 package models
 
-import "github.com/jmoiron/sqlx"
+import (
+	"bitbucket.org/pferdefleisch/dbpm/clients"
+	"github.com/jmoiron/sqlx"
+)
 
 // Pick model that is a db and json model
 type Pick struct {
@@ -21,6 +24,16 @@ func (p *Pick) Save(db *sqlx.DB) error {
     VALUES(
       :episode_id, :host, :name, :link, :description, :content)`
 	db.NamedExec(query, &p)
+	return nil
+}
+
+// ParseAPIPick takes the values from the api pick
+// and adds them to the Pick
+func (p *Pick) ParseAPIPick(apiPick *clients.Pick) error {
+	p.Name = apiPick.Name
+	p.Host = apiPick.Host
+	p.Link = apiPick.Link
+	p.Description = apiPick.Description
 	return nil
 }
 

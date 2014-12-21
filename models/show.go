@@ -2,21 +2,6 @@ package models
 
 import "github.com/jmoiron/sqlx"
 
-const (
-	showsURL            = "https://api.devchat.tv/shows.json"
-	parseableShowURL    = "https://api.devchat.tv/show/%s.json"
-	parseableEpisodeURL = "https://api.devchat.tv/show/%s/episodes.json"
-)
-
-var showMap = map[string]string{
-	"Adventures in Angular": "adventures-in-angular",
-	"Ruby Rogues":           "ruby-rogues",
-	"JavaScript Jabber":     "js-jabber",
-	"iPhreaks":              "iphreaks",
-	"Freelancers' Show":     "freelancers",
-	// "Rails Clips":           "rails-clips",
-}
-
 // Show models a show like ruby rogues in the db
 type Show struct {
 	ID         int

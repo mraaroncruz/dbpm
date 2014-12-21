@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"bitbucket.org/pferdefleisch/dbpm/clients"
 	"bitbucket.org/pferdefleisch/dbpm/data"
 	"bitbucket.org/pferdefleisch/dbpm/models"
 )
@@ -11,7 +12,7 @@ import (
 // Update checks the server for new episodes and parses their picks
 func Update() {
 	db := data.DBInstance()
-	// for each shoUpdate(w
+
 	shows, err := models.ShowAll(db)
 	if err != nil {
 		log.Fatalf("Couldn't retrieve all songs.\n")
@@ -24,22 +25,33 @@ func Update() {
 		}
 		fmt.Printf("Latest: %s %d\n", show.Name, latestEpisodeNumber)
 
-		apiEpisodes, err := clients.Devchat.GetEpisodesFrom(latestEpisodeNumber, show.Name)
+		var apiEpisodes = &[]clients.APIEpisode{}
+		devchat := &clients.Devchat{}
+		apiEpisodes, err = devchat.GetEpisodesAfter(latestEpisodeNumber, show.Slug)
 		if err != nil {
 			log.Fatalf("Couldn't get show episodes from api: %s\n", err)
 		}
-		//
-		// for _, episode := range apiEpisodes {
-		// 	err = episode.Save()
-		// 	if err != nil {
-		// 		fmt.Errorf("Couldn't save episode %s: %s\n", episode.Title, err)
-		// 	}
-		//
-		// 	err = episode.SavePicks()
-		// 	if err != nil {
-		// 		fmt.Errorf("Couldn't save picks for %s: %s\n", episode.Title, err)
-		// 	}
-		// }
+		fmt.Printf("%d new episodes\n", len(*apiEpisodes))
+
+		for _, episode := range *apiEpisodes {
+			dbEpisode := &models.Episode{}
+			dbEpisode.ParseAPIEpisode(&episode)
+			dbEpisode.ShowID = show.ID
+			err = dbEpisode.Save(db)
+			if err != nil {
+				fmt.Printf("Couldn't save episode %s: %s\n", dbEpisode.Title, err)
+			}
+
+			err = dbEpisode.SavePicks(db)
+			if err != nil {
+				fmt.Printf("Couldn't save picks for %s: %s\n", episode.Title, err)
+			}
+
+			// err = episode.ScrapePicks()
+			// if err != nil {
+			// 	fmt.Printf("Error scraping picks for episode %s\n%s\n", episode.Title, err)
+			// }
+		}
 		// fmt.Printf("Saved picks from %d episodes of %s\n", len(apiEpisodes), show.Name)
 	}
 	//   parse url
