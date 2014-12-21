@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/jmoiron/sqlx"
@@ -9,8 +10,9 @@ import (
 // Episode models an episode in the db
 type Episode struct {
 	ID, Number               int
+	ShowID                   int       `db:"show_id"`
 	PublishedAt              time.Time `db:"published_at"`
-	Title, Slug, Description string
+	Title, Slug, Description sql.NullString
 }
 
 // Save saves Episode struct to database

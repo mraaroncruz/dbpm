@@ -1,9 +1,47 @@
 package commands
 
+import (
+	"fmt"
+	"log"
+
+	"bitbucket.org/pferdefleisch/dbpm/data"
+	"bitbucket.org/pferdefleisch/dbpm/models"
+)
+
 // Update checks the server for new episodes and parses their picks
 func Update() {
-	// for each show
-	//   get the highest episode number
+	db := data.DBInstance()
+	// for each shoUpdate(w
+	shows, err := models.ShowAll(db)
+	if err != nil {
+		log.Fatalf("Couldn't retrieve all songs.\n")
+	}
+
+	for _, show := range *shows {
+		latestEpisodeNumber, err := show.MaxEpisodeNumber(db)
+		if err != nil {
+			log.Fatalf("Couldn't retreive latest episode from %s: %s\n", show.Name, err)
+		}
+		fmt.Printf("Latest: %s %d\n", show.Name, latestEpisodeNumber)
+
+		apiEpisodes, err := clients.Devchat.GetEpisodesFrom(latestEpisodeNumber, show.Name)
+		if err != nil {
+			log.Fatalf("Couldn't get show episodes from api: %s\n", err)
+		}
+		//
+		// for _, episode := range apiEpisodes {
+		// 	err = episode.Save()
+		// 	if err != nil {
+		// 		fmt.Errorf("Couldn't save episode %s: %s\n", episode.Title, err)
+		// 	}
+		//
+		// 	err = episode.SavePicks()
+		// 	if err != nil {
+		// 		fmt.Errorf("Couldn't save picks for %s: %s\n", episode.Title, err)
+		// 	}
+		// }
+		// fmt.Printf("Saved picks from %d episodes of %s\n", len(apiEpisodes), show.Name)
+	}
 	//   parse url
 	//   get difference of episodes
 	//   create new episode

@@ -7,7 +7,7 @@ import (
 )
 
 func DBInstance() *sqlx.DB {
-	db, err := sqlx.Connect("postgres", "user=al dbname=dbpm_development port=4444 sslmode=disable")
+	db, err := sqlx.Connect("postgres", "user=al dbname=dbpm_development port=5432 sslmode=disable")
 	if err != nil {
 		fmt.Printf("DB connection error: %s\n\n", err)
 	}

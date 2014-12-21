@@ -1,10 +1,6 @@
 package models
 
-import (
-	"fmt"
-
-	"github.com/jmoiron/sqlx"
-)
+import "github.com/jmoiron/sqlx"
 
 // Pick model that is a db and json model
 type Pick struct {
@@ -38,7 +34,6 @@ func PicksSearch(term string, db *sqlx.DB) ([]Pick, error) {
         to_tsquery('english', $1)`
 	err := db.Select(&picks, query, term)
 	if err != nil {
-		fmt.Printf("Error getting picks: %s\n", err)
 	}
 	return picks, nil
 }

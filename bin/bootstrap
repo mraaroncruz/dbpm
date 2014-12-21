@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+psql -d dbpm_development -U al -f reset.sql
+psql -d dbpm_development -U al -f init.sql

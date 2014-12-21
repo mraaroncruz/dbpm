@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
+	"bitbucket.org/pferdefleisch/dbpm/commands"
 	"github.com/codegangsta/cli"
-	"github.com/pferdefleisch/dbpm/commands"
 )
 
 func main() {
@@ -20,6 +20,14 @@ func main() {
 			Action: func(c *cli.Context) {
 				term := c.Args().First()
 				commands.Search(term)
+			},
+		},
+		{
+			Name:      "update",
+			ShortName: "u",
+			Usage:     "update pick database from api",
+			Action: func(c *cli.Context) {
+				commands.Update()
 			},
 		},
 	}

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+deploy_static() {
+  echo "Deploying static site to gh-pages"
+}
+
+deploy_server() {
+  echo "Deploying go app to heroku"
+  # git push heroku master
+}
+
+deploy_static
+deploy_server
