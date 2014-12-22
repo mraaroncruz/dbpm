@@ -30,6 +30,14 @@ func main() {
 				commands.Update()
 			},
 		},
+		{
+			Name:      "serve",
+			ShortName: "r",
+			Usage:     "run API server",
+			Action: func(c *cli.Context) {
+				commands.Server()
+			},
+		},
 	}
 
 	app.Run(os.Args)
