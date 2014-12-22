@@ -1,12 +1,12 @@
 <mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1359" measuredH="898" mockupW="1161" mockupH="881">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="198" y="17" w="1161" h="881" measuredW="450" measuredH="400" zOrder="0" locked="true" isInGroup="-1"/>
-    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="309" y="146" w="-1" h="-1" measuredW="304" measuredH="43" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="317" y="131" w="-1" h="-1" measuredW="304" measuredH="43" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <text>the%20pick%20machine</text>
       </controlProperties>
     </control>
-    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="654" y="151" w="348" h="-1" measuredW="147" measuredH="32" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="908" y="142" w="348" h="-1" measuredW="147" measuredH="32" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <size>18</size>
         <text>Search%20for%20picks</text>
@@ -17,32 +17,32 @@
         <color>15658734</color>
       </controlProperties>
     </control>
-    <control controlID="4" controlTypeID="com.balsamiq.mockups::SubTitle" x="373" y="203" w="-1" h="-1" measuredW="122" measuredH="23" zOrder="4" locked="false" isInGroup="-1">
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::SubTitle" x="323" y="200" w="-1" h="-1" measuredW="122" measuredH="23" zOrder="4" locked="false" isInGroup="-1">
       <controlProperties>
         <size>20</size>
         <text>Ruby%20Rogues</text>
       </controlProperties>
     </control>
-    <control controlID="5" controlTypeID="com.balsamiq.mockups::SubTitle" x="530" y="203" w="-1" h="-1" measuredW="78" measuredH="23" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::SubTitle" x="560" y="200" w="-1" h="-1" measuredW="78" measuredH="23" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <size>20</size>
         <text>iPhreaks</text>
       </controlProperties>
     </control>
-    <control controlID="6" controlTypeID="com.balsamiq.mockups::SubTitle" x="643" y="203" w="-1" h="-1" measuredW="162" measuredH="23" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::SubTitle" x="734" y="200" w="-1" h="-1" measuredW="162" measuredH="23" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <size>20</size>
         <text>Freelancers%20Show</text>
       </controlProperties>
     </control>
-    <control controlID="7" controlTypeID="com.balsamiq.mockups::SubTitle" x="840" y="203" w="-1" h="-1" measuredW="162" measuredH="23" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::SubTitle" x="949" y="200" w="-1" h="-1" measuredW="162" measuredH="23" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
         <size>20</size>
         <text>Javascript%20Jabber</text>
       </controlProperties>
     </control>
     <control controlID="8" controlTypeID="com.balsamiq.mockups::TextArea" x="316" y="279" w="940" h="590" measuredW="200" measuredH="140" zOrder="8" locked="true" isInGroup="-1"/>
-    <control controlID="9" controlTypeID="com.balsamiq.mockups::SubTitle" x="316" y="203" w="-1" h="-1" measuredW="22" measuredH="23" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::SubTitle" x="1234" y="200" w="-1" h="-1" measuredW="22" measuredH="23" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
         <size>20</size>
         <text>All</text>
@@ -364,6 +364,12 @@
         <italic>true</italic>
         <size>18</size>
         <text>113%20Why%20we%20test</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::Title" x="323" y="241" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="66" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>Latest</text>
       </controlProperties>
     </control>
   </controls>
