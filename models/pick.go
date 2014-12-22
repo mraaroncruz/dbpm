@@ -22,7 +22,28 @@ func (p *Pick) Save(db *sqlx.DB) error {
     INSERT INTO picks (
       episode_id, host, name, link, description, content)
     VALUES(
-      :episode_id, :host, :name, :link, :description, :content)`
+      :episode_id, :host, :name, :link, :description, :content)
+		RETURNING id`
+	rows, err := db.NamedQuery(query, &p)
+	defer rows.Close()
+	if err != nil {
+		return err
+	}
+
+	if rows.Next() {
+		var id int
+		err = rows.Scan(&id)
+		if err != nil {
+			return err
+		}
+		p.ID = id
+	}
+	return nil
+}
+
+// UpdateContent just updates the content field of pick
+func (p *Pick) UpdateContent(db *sqlx.DB) error {
+	query := "UPDATE picks SET content=:content WHERE picks.id = :id"
 	db.NamedExec(query, &p)
 	return nil
 }

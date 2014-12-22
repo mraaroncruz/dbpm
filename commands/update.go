@@ -7,6 +7,7 @@ import (
 	"bitbucket.org/pferdefleisch/dbpm/clients"
 	"bitbucket.org/pferdefleisch/dbpm/data"
 	"bitbucket.org/pferdefleisch/dbpm/models"
+	"bitbucket.org/pferdefleisch/dbpm/utils"
 )
 
 // Update checks the server for new episodes and parses their picks
@@ -42,15 +43,16 @@ func Update() {
 				fmt.Printf("Couldn't save episode %s: %s\n", dbEpisode.Title, err)
 			}
 
-			err = dbEpisode.SavePicks(db)
+			picks, err := dbEpisode.SavePicks(db)
 			if err != nil {
 				fmt.Printf("Couldn't save picks for %s: %s\n", episode.Title, err)
 			}
 
-			// err = episode.ScrapePicks()
-			// if err != nil {
-			// 	fmt.Printf("Error scraping picks for episode %s\n%s\n", episode.Title, err)
-			// }
+			scraper := &utils.ContentScraper{DB: db}
+			err = scraper.Scrape(picks)
+			if err != nil {
+				fmt.Printf("Error scraping picks for episode %s\n%s\n", episode.Title, err)
+			}
 		}
 		// fmt.Printf("Saved picks from %d episodes of %s\n", len(apiEpisodes), show.Name)
 	}

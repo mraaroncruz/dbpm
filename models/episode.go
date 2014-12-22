@@ -74,7 +74,8 @@ func toDate(dateString string) (time.Time, error) {
 }
 
 // SavePicks takes persists the episode's picks to the database
-func (e *Episode) SavePicks(db *sqlx.DB) error {
+func (e *Episode) SavePicks(db *sqlx.DB) ([]Pick, error) {
+	modelPicks := []Pick{}
 	for _, pick := range e.Picks {
 		modelPick := &Pick{}
 		modelPick.ParseAPIPick(&pick)
@@ -83,7 +84,8 @@ func (e *Episode) SavePicks(db *sqlx.DB) error {
 		if err != nil {
 			fmt.Printf("Pick %s wouldn't save: %s\n", pick.Name, err)
 		}
+		modelPicks = append(modelPicks, *modelPick)
 	}
 	// never returns error
-	return nil
+	return modelPicks, nil
 }
