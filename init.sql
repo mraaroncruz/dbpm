@@ -30,6 +30,8 @@ CREATE TABLE shows (
   slug VARCHAR(100)
 );
 
+CREATE INDEX shows_name_idx ON shows(name);
+
 INSERT INTO shows (name, slug) VALUES('Adventures in Angular', 'adventures-in-angular');
 INSERT INTO shows (name, slug) VALUES('Ruby Rogues', 'ruby-rogues');
 INSERT INTO shows (name, slug) VALUES('JavaScript Jabber', 'js-jabber');
