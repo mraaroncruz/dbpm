@@ -1,0 +1,31 @@
+---
+title: Energy Globe Award
+---
+
+<div class="application" ng-controller="ApplicationController">
+  <header>
+    <h1 class="headline">
+      The Pick Machine
+    </h1>
+  </header>
+
+  <section ng-controller="PicksController">
+    <input ng-model="search.term" type="text" />
+    <div class="pick" ng-repeat="pick in picks">
+      <h3>
+        <logo for="pick"></logo>
+        <a ng-href="{{pick.link}}">{{ pick.name }}</a>
+      </h3>
+      <ul class="pick-info">
+        <li>
+          <span class="pick-title">Panelist</span>
+          <span class="pick-value">{{pick.host}}</span>
+        </li>
+        <li>
+          <span class="pick-title">Episode</span>
+          <span class="pick-value">{{pick.number}} {{pick.episode_title}}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

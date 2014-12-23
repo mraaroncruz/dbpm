@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta/>
+    <!-- Always force latest IE rendering engine or request Chrome Frame
+    -->
+    <meta/>
+    <meta/>
+    <!-- Use title if it's in the page YAML frontmatter
+    -->
+    <title>
+      <%= current_page.data.title %>
+    </title>
+    <link href="apple-touch-icon-152x152-precomposed.png" rel="apple-touch-icon" sizes="152x152"></link>
+    <link href="apple-touch-icon-144x144-precomposed.png" rel="apple-touch-icon" sizes="144x144"></link>
+    <link href="apple-touch-icon-114x114-precomposed.png" rel="apple-touch-icon" sizes="114x114"></link>
+    <link href="apple-touch-icon-72x72-precomposed.png" rel="apple-touch-icon" sizes="72x72"></link>
+    <link href="apple-touch-icon-precomposed.png" rel="apple-touch-icon"></link>
+    <link href="favicon.png" rel="shortcut icon"></link>
+    <link href="favicon.ico" rel="icon" type="image/ico"></link>
+    <%= stylesheet_link_tag "normalize", "all" %>
+  </head>
+  <body class="<%= page_classes %>" ng-app="thepickmachine">
+    <%= yield %>
+    <%= javascript_include_tag  "vendor/angular/angular.min" %>
+    <%= javascript_include_tag  "application" %>
+  </body>
+</html>
