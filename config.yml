@@ -1,0 +1,4 @@
+database:
+  user: bob
+  name: dbpm_development
+  password: password
