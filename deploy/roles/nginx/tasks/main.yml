@@ -1,0 +1,7 @@
+---
+- name: Install nginx
+  apt: name=nginx state=present
+
+- name: Copy nginx configuration for app
+  template: src=app.conf dest=/etc/nginx/sites-enabled/{{app_name}}.conf
+  notify: restart nginx

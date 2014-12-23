@@ -1,0 +1,89 @@
+##
+# Example Ansible playbook that uses the PostgreSQL module.
+#
+# This installs PostgreSQL on an Ubuntu system, creates a database called
+# "myapp" and a user called "django" with password "mysupersecretpassword"
+# with access to the "myapp" database.
+#
+---
+# General
+- hosts: webservers
+  sudo: yes
+  gather_facts: no
+
+  tasks:
+  - name: ensure apt cache is up to date
+    action: apt update_cache=yes
+  - name: ensure packages are installed
+    action: apt name={{item}}
+    with_items:
+        - postgresql
+        - libpq-dev
+        - python-psycopg2
+        - nginx
+
+# DB
+- hosts: webservers
+  sudo: yes
+  sudo_user: postgres
+  gather_facts: no
+
+  vars:
+    dbname: dbpm_production
+    dbuser: dbpm
+    dbpassword: dbpm_2121poijpoij
+
+  tasks:
+  - name: ensure database is created
+    postgresql_db: name={{dbname}}
+
+  - name: ensure user has access to database
+    postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
+
+  - name: set user privs on tables
+    postgresql_privs: >
+      state=present
+      db={{dbname}}
+      privs=ALL
+      type=table
+      objs=ALL_IN_SCHEMA
+      role={{ dbuser }}
+
+  - name: set user privs on indices
+    postgresql_privs: >
+      state=present
+      db={{dbname}}
+      privs=ALL
+      type=sequence
+      objs=ALL_IN_SCHEMA
+      role={{ dbuser }}
+
+# App
+- hosts: webservers
+  sudo: yes
+  sudo_user:
+  gather_facts: no
+
+  vars:
+    # app
+    app_port: 3000
+    app_name: dbpm
+    app_hostname: dbpm.aaroncruz.com
+    app_path: "/srv/{{ app_name }}"
+    app_public_path: "{{ app_path }}/build"
+    app_command: serve
+    app_config: "/srv/{{ app_name }}/config"
+    dbname: dbpm_production
+    dbuser: dbpm
+    dbpassword: dbpm_2121poijpoij
+
+  tasks:
+    - name: Add app group
+      group: name={{app_name}}
+
+    - name: Add app user
+      user: name={{ app_name }} group={{ app_name }} home=/srv/{{ app_name }}/
+
+  roles:
+    - app
+    - nginx

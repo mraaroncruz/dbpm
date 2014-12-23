@@ -1,0 +1,20 @@
+- name: app | ensure app group exists
+  group: name={{ app_name }} state=present system=yes
+
+- name: app | ensure app user exists
+  user: name={{app_name}} group={{app_name}} createhome=no shell=/bin/false system=yes state=present
+
+- name: app | copy template
+  template: src=service.conf.j2 dest=/etc/init/{{ app_name }}.conf backup=yes mode=0644
+
+- name: Create config directory
+  file: path={{app_config}} state=directory
+
+- name: app | copy app config
+  template: src=config.yml.j2 dest={{ app_config }}/config.yml backup=yes mode=0644
+
+- name: app | start service
+  service: name={{ app_name }} state=started
+
+- name: app | cron update server with new podcasts
+  cron: name="update picks" minute="0" hour="0,12" job="CONFIG={{app_config}}/config.yml {{app_path}}/{{app_name}} update"
