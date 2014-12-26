@@ -27,10 +27,3 @@
 
 - name: app | cron update server with new podcasts
   cron: name="update picks" minute="0" hour="0,12" job="CONFIG={{app_config}}/config.yml {{app_path}}/{{app_name}} update"
-
-- handlers:
-  - name: start app
-    service: name={{ app_name }} state=started
-  - name: restart app
-    service: name={{ app_name }} state=restarted
-
