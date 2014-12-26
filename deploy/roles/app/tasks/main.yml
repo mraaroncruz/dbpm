@@ -18,8 +18,8 @@
 - name: app | create dest dir for app
   file: path=/tmp/go/src/bitbucket.org/pferdefleisch/dbpm state=directory
 
-#- name: app | sync app to remote tmp to compile remotely
-  #copy: src=/Users/aaron/Go/src/bitbucket.org/pferdefleisch/dbpm/dbpm dest=/tmp/go/src/bitbucket.org/pferdefleisch/dbpm/
+- name: app | sync app to remote tmp to compile remotely
+  copy: src=/Users/aaron/Go/src/bitbucket.org/pferdefleisch/dbpm/dbpm dest=/tmp/go/src/bitbucket.org/pferdefleisch/dbpm/
 
 - name: app | go get
   shell: cd /tmp/go/src/bitbucket.org/pferdefleisch/dbpm/dbpm && GOPATH=/tmp/go /usr/local/go/bin/go get
