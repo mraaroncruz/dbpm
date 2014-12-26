@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"bitbucket.org/pferdefleisch/dbpm/data"
-	"bitbucket.org/pferdefleisch/dbpm/server/controllers"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/data"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/server/controllers"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/julienschmidt/httprouter"

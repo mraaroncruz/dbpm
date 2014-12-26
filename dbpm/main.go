@@ -3,7 +3,8 @@ package main
 import (
 	"os"
 
-	"bitbucket.org/pferdefleisch/dbpm/commands"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/commands"
+
 	"github.com/codegangsta/cli"
 )
 

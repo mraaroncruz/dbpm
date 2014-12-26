@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"bitbucket.org/pferdefleisch/dbpm/data"
-	"bitbucket.org/pferdefleisch/dbpm/models"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/data"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/models"
+
 	_ "github.com/lib/pq" // blah blah
 )
 

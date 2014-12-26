@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"bitbucket.org/pferdefleisch/dbpm/models"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/models"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/julienschmidt/httprouter"
 )

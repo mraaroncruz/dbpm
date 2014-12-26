@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"bitbucket.org/pferdefleisch/dbpm/clients"
-	"bitbucket.org/pferdefleisch/dbpm/data"
-	"bitbucket.org/pferdefleisch/dbpm/models"
-	"bitbucket.org/pferdefleisch/dbpm/utils"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/clients"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/data"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/models"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/utils"
 )
 
 // Update checks the server for new episodes and parses their picks

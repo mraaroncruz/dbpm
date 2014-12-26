@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"bitbucket.org/pferdefleisch/dbpm/clients"
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/clients"
 
 	"github.com/jmoiron/sqlx"
 )

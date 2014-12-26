@@ -9,10 +9,10 @@ import (
 	"sync"
 	"time"
 
+	"bitbucket.org/pferdefleisch/dbpm/dbpm/models"
+
 	"github.com/agonopol/readability"
 	"github.com/jmoiron/sqlx"
-
-	"bitbucket.org/pferdefleisch/dbpm/models"
 )
 
 // ContentScraper is a utility to concurrently scrape the content from picks
