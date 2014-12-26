@@ -8,17 +8,12 @@ type Show struct {
 	Name, Slug string
 }
 
-// ShowAll get all shows from database
-func ShowAll(db *sqlx.DB) (*[]Show, error) {
+// All get all shows from database
+func (show *Show) All(db *sqlx.DB) (*[]Show, error) {
 	shows := []Show{}
 	query := "SELECT * FROM shows"
 	err := db.Select(&shows, query)
 	return &shows, err
-}
-
-// ShowFind finds a show in the database by key
-func ShowFind(key string) *Show {
-	return new(Show)
 }
 
 // MaxEpisodeNumber returns the most recent episode from the

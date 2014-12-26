@@ -25,6 +25,8 @@ func Server() {
 	router.GET("/", home.Index)
 	search := &controllers.Search{DB: db}
 	router.GET("/search", search.Index)
+	shows := &controllers.Shows{DB: db}
+	router.GET("/shows", shows.Index)
 
 	port := os.Getenv("PORT")
 	if port == "" {

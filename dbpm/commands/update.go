@@ -14,7 +14,8 @@ import (
 func Update() {
 	db := data.DBInstance()
 
-	shows, err := models.ShowAll(db)
+	show := models.Show{}
+	shows, err := show.All(db)
 	if err != nil {
 		log.Fatalf("Couldn't retrieve all songs.\n")
 	}
