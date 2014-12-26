@@ -6,15 +6,31 @@
 
 - name: app | copy template
   template: src=service.conf.j2 dest=/etc/init/{{ app_name }}.conf backup=yes mode=0644
+  notify: restart app
 
 - name: Create config directory
   file: path={{app_config}} state=directory
 
 - name: app | copy app config
   template: src=config.yml.j2 dest={{ app_config }}/config.yml backup=yes mode=0644
+  notify: restart app
 
-- name: app | start service
-  service: name={{ app_name }} state=started
+- name: app | copy app to remote tmp to compile remotely
+  copy: src=/Users/aaron/Go/src/bitbucket.org/pferdefleisch/dbpm dest="/tmp"
+
+- name: app | compile app remotely
+  command: cd /tmp/dbpm && go install -o {{app_path}}/{{app_name}}
+  notify: restart app
+
+- name: app | remove tmp app from server
+  file: path=/tmp/{{app_name}} state=absent
 
 - name: app | cron update server with new podcasts
   cron: name="update picks" minute="0" hour="0,12" job="CONFIG={{app_config}}/config.yml {{app_path}}/{{app_name}} update"
+
+- handlers:
+  - name: start app
+    service: name={{ app_name }} state=started
+  - name: restart app
+    service: name={{ app_name }} state=restarted
+
