@@ -15,15 +15,21 @@
   template: src=config.yml.j2 dest={{ app_config }}/config.yml backup=yes mode=0644
   notify: restart app
 
-- name: app | copy app to remote tmp to compile remotely
-  copy: src=/Users/aaron/Go/src/bitbucket.org/pferdefleisch/dbpm dest="/tmp"
+- name: app | create dest dir for app
+  file: path=/tmp/go/src/bitbucket.org/pferdefleisch/dbpm state=directory
+
+#- name: app | sync app to remote tmp to compile remotely
+  #copy: src=/Users/aaron/Go/src/bitbucket.org/pferdefleisch/dbpm/dbpm dest=/tmp/go/src/bitbucket.org/pferdefleisch/dbpm/
+
+- name: app | go get
+  shell: cd /tmp/go/src/bitbucket.org/pferdefleisch/dbpm/dbpm && GOPATH=/tmp/go /usr/local/go/bin/go get
 
 - name: app | compile app remotely
-  command: cd /tmp/dbpm && go install -o {{app_path}}/{{app_name}}
+  shell: cd /tmp/go/src/bitbucket.org/pferdefleisch/dbpm/dbpm && GOPATH=/tmp/go /usr/local/go/bin/go build -o {{app_path}}/{{app_name}} main.go
   notify: restart app
 
-- name: app | remove tmp app from server
-  file: path=/tmp/{{app_name}} state=absent
+#- name: app | remove tmp app from server
+  #file: path=/tmp/go/src/{{app_name}} state=absent
 
 - name: app | cron update server with new podcasts
   cron: name="update picks" minute="0" hour="0,12" job="CONFIG={{app_config}}/config.yml {{app_path}}/{{app_name}} update"
