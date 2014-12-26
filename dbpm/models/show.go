@@ -4,8 +4,9 @@ import "github.com/jmoiron/sqlx"
 
 // Show models a show like ruby rogues in the db
 type Show struct {
-	ID         int
-	Name, Slug string
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Slug string `json:"slug"`
 }
 
 // All get all shows from database
