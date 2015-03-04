@@ -31,7 +31,7 @@
   vars:
     dbname: dbpm_production
     dbuser: dbpm
-    dbpassword: dbpm_2121poijpoij
+    dbpassword: dbpm_changeme
 
   tasks:
   - name: ensure database is created
