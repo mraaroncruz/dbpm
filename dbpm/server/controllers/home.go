@@ -19,12 +19,12 @@ type Home struct {
 func (c Home) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	db := c.DB
 	pickModel := &models.Pick{}
-	picks, err := pickModel.Latest(db)
+    picks, err := pickModel.Latest(db)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 	}
 
-	jsn, err := json.Marshal(picks)
+    jsn, err := json.Marshal(picks)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 	}
